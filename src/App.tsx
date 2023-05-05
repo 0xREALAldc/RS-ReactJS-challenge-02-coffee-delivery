@@ -18,11 +18,11 @@ export function App() {
         {/* <span>Coffee</span> for L.I.F.E */}
         <div>
           <span>
-            <MapPin size={20} />
+            <MapPin size={20} weight="fill" />
             Chopinzinho, PR
           </span>
           <span>
-            <ShoppingCart size={20} />
+            <ShoppingCart size={20} weight="fill" />
           </span>
         </div>
       </header>
@@ -39,7 +39,7 @@ export function App() {
               <div>
                 <div>
                   <span>
-                    <ShoppingCart size={13} />
+                    <ShoppingCart size={13} weight="fill" />
                   </span>
                   <p>Easy and safe to buy</p>
                 </div>
@@ -54,7 +54,7 @@ export function App() {
               <div>
                 <div>
                   <span>
-                    <Package size={13} />
+                    <Package size={13} weight="fill" />
                   </span>
                   <p>Package that holds your coffee safe</p>
                 </div>
@@ -89,7 +89,7 @@ export function App() {
                 <div>
                   <p>- 1 +</p>
                   <span>
-                    <ShoppingCart size={13} />
+                    <ShoppingCart size={13} weight="fill" />
                   </span>
                 </div>
               </div>
@@ -107,7 +107,7 @@ export function App() {
                 <div>
                   <p>- 1 +</p>
                   <span>
-                    <ShoppingCart size={13} />
+                    <ShoppingCart size={13} weight="fill" />
                   </span>
                 </div>
               </div>
@@ -125,7 +125,7 @@ export function App() {
                 <div>
                   <p>- 1 +</p>
                   <span>
-                    <ShoppingCart size={13} />
+                    <ShoppingCart size={13} weight="fill" />
                   </span>
                 </div>
               </div>
@@ -144,7 +144,7 @@ export function App() {
                 <div>
                   <p>- 1 +</p>
                   <span>
-                    <ShoppingCart size={13} />
+                    <ShoppingCart size={13} weight="fill" />
                   </span>
                 </div>
               </div>
