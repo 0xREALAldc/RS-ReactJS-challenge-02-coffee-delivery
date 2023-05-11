@@ -5,8 +5,6 @@ import background from './assets/Background.svg'
 export const HomeContainer = styled.div`
   flex: 1;
   margin: auto 16rem;
-
-  background-color: ${(props) => props.theme.background};
 `
 
 export const HomeHeader = styled.header`
@@ -14,7 +12,6 @@ export const HomeHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 10.4rem;
-  background-color: ${(props) => props.theme.background};
 
   div {
     display: flex;

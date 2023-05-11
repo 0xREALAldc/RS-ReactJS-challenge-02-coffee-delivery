@@ -18,7 +18,9 @@ html {
 }
 
 body {
-  /* background: var(--gray-600);
+  background: ${(props) => props.theme.background};
+
+  /* 
   color: var(--gray-300); */
   /* 
     this line below here lets the fonts that we use more smooth, because we're not going to use fonts that are 
