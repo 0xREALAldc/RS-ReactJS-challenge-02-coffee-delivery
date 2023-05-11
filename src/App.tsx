@@ -1,6 +1,35 @@
-import './App.css'
+import {
+  MapPin,
+  ShoppingCart,
+  Timer,
+  Package,
+  Coffee,
+  Minus,
+  Plus,
+} from 'phosphor-react'
+import { ThemeProvider } from 'styled-components'
+import { defaultTheme } from './styles/themes/default'
 
-import { MapPin, ShoppingCart, Timer, Package, Coffee } from 'phosphor-react'
+import {
+  HomeHeader,
+  HomeContainer,
+  MainContainer,
+  MarketingContainer,
+  MarketingItems,
+  ItemsContainer,
+  ShoppingItem,
+  PackageItem,
+  TimeItem,
+  CoffeeItem,
+  CoffeeCard,
+  CoffeeList,
+  FlavorTiles,
+  PriceContainer,
+  CoffeeContainer,
+} from './App.styles'
+
+import './App.css'
+import './styles/themes/global.css'
 
 import coffeLogo from './assets/coffe-delivery.svg'
 import coffeDelivery from './assets/coffee-delivery-home.svg'
@@ -12,147 +41,175 @@ import icyEspresso from './assets/coffee/icy-espresso.svg'
 
 export function App() {
   return (
-    <div>
-      <header>
-        <img src={coffeLogo} alt="" />
-        {/* <span>Coffee</span> for L.I.F.E */}
-        <div>
-          <span>
-            <MapPin size={20} weight="fill" />
-            Chopinzinho, PR
-          </span>
-          <span>
-            <ShoppingCart size={20} weight="fill" />
-          </span>
-        </div>
-      </header>
-
-      <main>
-        <section>
+    <ThemeProvider theme={defaultTheme}>
+      <HomeContainer>
+        <HomeHeader>
+          <img src={coffeLogo} alt="" />
+          {/* <span>Coffee</span> for L.I.F.E */}
           <div>
-            <div>
-              <h2>Find the perfect coffe for any hour of your day</h2>
+            <span>
+              <MapPin size={20} weight="fill" />
+              <p>Chopinzinho, PR</p>
+            </span>
+            <span>
+              <a href="">
+                <ShoppingCart size={20} weight="fill" />
+              </a>
+            </span>
+          </div>
+        </HomeHeader>
+
+        <MainContainer>
+          <MarketingContainer>
+            {/* <div> */}
+            <ItemsContainer>
+              <h2>Find the perfect coffe for any time of the day</h2>
               <p>
                 With Coffee Delivery you get your coffee wherever you are, any
                 time
               </p>
-              <div>
-                <div>
+              <MarketingItems>
+                <ShoppingItem>
                   <span>
-                    <ShoppingCart size={13} weight="fill" />
+                    <ShoppingCart size={16} weight="fill" />
                   </span>
                   <p>Easy and safe to buy</p>
-                </div>
+                </ShoppingItem>
 
-                <div>
+                <PackageItem>
                   <span>
-                    <Timer size={13} />
-                  </span>
-                  <p>Fast and tracked delivery</p>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <span>
-                    <Package size={13} weight="fill" />
+                    <Package size={16} weight="fill" />
                   </span>
                   <p>Package that holds your coffee safe</p>
-                </div>
-
-                <div>
+                </PackageItem>
+                {/* </MarketingItems> */}
+                {/* <MarketingItems> */}
+                <TimeItem>
                   <span>
-                    <Coffee size={13} />
+                    <Timer size={16} weight="fill" />
                   </span>
-                  <p>The coffee is still fresh when delivered to you</p>
-                </div>
-              </div>
-            </div>
+                  <p>Fast and tracked delivery</p>
+                </TimeItem>
+
+                <CoffeeItem>
+                  <span>
+                    <Coffee size={16} />
+                  </span>
+                  <p>Fresh coffee delivered to you</p>
+                </CoffeeItem>
+              </MarketingItems>
+            </ItemsContainer>
             <img src={coffeDelivery} alt="" />
-          </div>
-        </section>
+            {/* </div> */}
+          </MarketingContainer>
 
-        <section>
-          <h2>Menu</h2>
-          <div>
-            <div>
-              <img src={traditionalEspresso} alt="Traditional express" />
-              <div>
-                <span>Traditional</span>
-              </div>
-              <h4>Traditional Express</h4>
-              <p>
-                The traditional coffee brewed with hot water and ground coffee
-                beans
-              </p>
-              <div>
-                <span>$ 9,90</span>
-                <div>
-                  <p>- 1 +</p>
+          <CoffeeContainer>
+            <h2>Our Cafes</h2>
+            <CoffeeList>
+              <CoffeeCard>
+                <img src={traditionalEspresso} alt="Traditional express" />
+                <FlavorTiles>
+                  <span>Tradicional</span>
+                </FlavorTiles>
+                <h4>Traditional Espresso</h4>
+                <p>
+                  Traditional coffee brewed with hot water and ground coffee
+                  beans
+                </p>
+                <PriceContainer>
                   <span>
-                    <ShoppingCart size={13} weight="fill" />
+                    R$ <p>9,90</p>
                   </span>
-                </div>
-              </div>
-            </div>
+                  <div>
+                    <span>
+                      <Minus weight="fill" size={16} />
+                      <p>1</p>
+                      <Plus weight="fill" size={16} />
+                    </span>
+                    <span>
+                      <ShoppingCart size={26} weight="fill" />
+                    </span>
+                  </div>
+                </PriceContainer>
+              </CoffeeCard>
 
-            <div>
-              <img src={americanEspresso} alt="American express" />
-              <div>
-                <span>Traditional</span>
-              </div>
-              <h4>American Express</h4>
-              <p>A diluted espresso, less intense than the Traditional</p>
-              <div>
-                <span>$ 9,90</span>
-                <div>
-                  <p>- 1 +</p>
+              <CoffeeCard>
+                <img src={americanEspresso} alt="American express" />
+                <FlavorTiles>
+                  <span>Traditional</span>
+                </FlavorTiles>
+                <h4>American Espresso</h4>
+                <p>A diluted espresso, less intense than the Traditional</p>
+                <PriceContainer>
                   <span>
-                    <ShoppingCart size={13} weight="fill" />
+                    $ <p>9,90</p>
                   </span>
-                </div>
-              </div>
-            </div>
+                  <div>
+                    <span>
+                      <Minus weight="fill" size={16} />
+                      <p>1</p>
+                      <Plus weight="fill" size={16} />
+                    </span>
+                    <span>
+                      <ShoppingCart size={26} weight="fill" />
+                    </span>
+                  </div>
+                </PriceContainer>
+              </CoffeeCard>
 
-            <div>
-              <img src={creamyEspresso} alt="Creamy express" />
-              <div>
-                <span>Traditional</span>
-              </div>
-              <h4>Creamy Express</h4>
-              <p>Traditional espresso coffee with a creamy milk foam</p>
-              <div>
-                <span>$ 9,90</span>
-                <div>
-                  <p>- 1 +</p>
+              <CoffeeCard>
+                <img src={creamyEspresso} alt="Creamy express" />
+                <FlavorTiles>
+                  <span>Traditional</span>
+                </FlavorTiles>
+                <h4>Creamy Espresso</h4>
+                <p>Traditional espresso coffee with a creamy milk foam</p>
+                <PriceContainer>
                   <span>
-                    <ShoppingCart size={13} weight="fill" />
+                    $ <p>9,90</p>
                   </span>
-                </div>
-              </div>
-            </div>
+                  <div>
+                    <span>
+                      <Minus weight="fill" size={16} />
+                      <p>1</p>
+                      <Plus weight="fill" size={16} />
+                    </span>
+                    <span>
+                      <ShoppingCart size={26} weight="fill" />
+                    </span>
+                  </div>
+                </PriceContainer>
+              </CoffeeCard>
 
-            <div>
-              <img src={icyEspresso} alt="Icy express" />
-              <div>
-                <span>Traditional</span>
-                <span>Gelado</span>
-              </div>
-              <h4>Icy Express</h4>
-              <p>A brew prepared with ice cubes and a espresso coffee</p>
-              <div>
-                <span>$ 9,90</span>
-                <div>
-                  <p>- 1 +</p>
+              <CoffeeCard>
+                <img src={icyEspresso} alt="Icy express" />
+                <FlavorTiles>
+                  <span>Traditional</span>
+                  <span>Cold</span>
+                </FlavorTiles>
+                <h4>Icy Espresso</h4>
+                <p>A brew prepared with ice cubes and a espresso coffee</p>
+                <PriceContainer>
                   <span>
-                    <ShoppingCart size={13} weight="fill" />
+                    $ <p>9,90</p>
                   </span>
-                </div>
-              </div>
-            </div>
-            {/*  */}
-          </div>
-        </section>
-      </main>
-    </div>
+                  <div>
+                    <span>
+                      <Minus weight="fill" size={16} />
+                      <p>1</p>
+                      <Plus weight="fill" size={16} />
+                    </span>
+                    <span>
+                      <ShoppingCart size={26} weight="fill" />
+                    </span>
+                  </div>
+                </PriceContainer>
+              </CoffeeCard>
+              {/*  */}
+            </CoffeeList>
+          </CoffeeContainer>
+        </MainContainer>
+      </HomeContainer>
+    </ThemeProvider>
   )
 }
