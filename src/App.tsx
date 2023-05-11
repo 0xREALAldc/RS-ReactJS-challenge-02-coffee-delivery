@@ -29,7 +29,6 @@ import {
 } from './App.styles'
 
 import './App.css'
-import './styles/themes/global.css'
 
 import coffeLogo from './assets/coffe-delivery.svg'
 import coffeDelivery from './assets/coffee-delivery-home.svg'
@@ -38,6 +37,7 @@ import traditionalEspresso from './assets/coffee/traditional-espresso.svg'
 import americanEspresso from './assets/coffee/american-espresso.svg'
 import creamyEspresso from './assets/coffee/creamy-espresso.svg'
 import icyEspresso from './assets/coffee/icy-espresso.svg'
+import { GlobalStyle } from './styles/global'
 
 export function App() {
   return (
@@ -210,6 +210,8 @@ export function App() {
           </CoffeeContainer>
         </MainContainer>
       </HomeContainer>
+
+      <GlobalStyle />
     </ThemeProvider>
   )
 }

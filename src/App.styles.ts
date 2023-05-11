@@ -66,10 +66,6 @@ export const MainContainer = styled.main`
   margin-top: 9.4rem;
 `
 
-export const ItemsContainer = styled.div`
-  width: calc(100% - 47.2rem);
-`
-
 export const MarketingContainer = styled.section`
   display: flex;
   background-image: url(${background});
@@ -79,21 +75,27 @@ export const MarketingContainer = styled.section`
     font-family: 'Baloo 2', sans-serif;
     font-weight: 800;
     font-size: 4.8rem;
-    line-height: 1.3;
+
+    margin-bottom: 1.6rem;
   }
 
   p {
     color: ${(props) => props.theme['base-subtitle']};
-    font-family: 'Roboto', sans-serif;
+
     font-size: 2rem;
-    line-height: 1.3;
     font-weight: 400;
   }
+`
+
+export const ItemsContainer = styled.div`
+  width: calc(100% - 47.2rem);
 `
 
 export const MarketingItems = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  margin-top: 6.6rem;
 
   div {
     display: flex;
@@ -120,21 +122,33 @@ export const MarketingItems = styled.div`
 `
 
 export const ShoppingItem = styled.div`
+  height: 3.2rem;
+  margin-bottom: 2rem;
+
   span {
     background-color: ${(props) => props.theme['yellow-dark']};
   }
 `
 export const PackageItem = styled.div`
+  height: 3.2rem;
+  margin-bottom: 2rem;
+
   span {
     background-color: ${(props) => props.theme['base-text']};
   }
 `
 export const TimeItem = styled.div`
+  height: 3.2rem;
+  margin-bottom: 2rem;
+
   span {
     background-color: ${(props) => props.theme.yellow};
   }
 `
 export const CoffeeItem = styled.div`
+  height: 3.2rem;
+  margin-bottom: 2rem;
+
   span {
     background-color: ${(props) => props.theme.purple};
   }
@@ -168,7 +182,7 @@ export const CoffeeCard = styled.div`
   background-color: ${(props) => props.theme['base-card']};
   padding: 0 2rem;
 
-  width: 21.6rem;
+  width: 25.6rem;
   height: 31rem;
 
   border-top-left-radius: 6px;

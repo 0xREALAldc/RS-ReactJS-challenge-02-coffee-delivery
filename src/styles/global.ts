@@ -1,28 +1,7 @@
-/* :root {
-  /* Product */
-  --yellow: #DBAC2C;
-  --yellow-dark: #C47F17;
-  --yellow-light: #F1E9C9;
+import { createGlobalStyle } from 'styled-components'
 
-  --purple: #8047F8;
-  --purple-dark: #4B2995;
-  --purple-light: #EBE5F9;
-
-  /* Base */
-  --base-title: #272221;
-  --base-subtitle: #403937;
-  --base-text: #574F4D;
-  --base-label: #8D8686;
-  --base-hover: #D7D5D5;
-  --base-button: #E6E5E5;
-  --base-input: #EDEDED;
-  --base-card: #F3F2F2;
-
-  --background: #FAFAFA;
-  --white: #FFFFFF;
-} */
-
-* {
+export const GlobalStyle = createGlobalStyle`
+  * {
   margin: 0;
   padding: 0;
 
@@ -49,16 +28,18 @@ body {
 }
 
 body, input, textarea, button {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.3;
   /* a note about using 'rem' 
       '1rem' means that we're using ONE metric unit relative to the default font size for html, that is 16px 
       this means the size of font will be relative to the device, and allows to if people have theis devices configured to 
       increase/decrease the font size to still do this in your website. 
    */
   font-size: 1.6rem; 
-
+/* 
   margin: 0;
-  padding: 0;
+  padding: 0; */
 }
+
+`
