@@ -39,9 +39,6 @@ body, input, textarea, button {
       increase/decrease the font size to still do this in your website. 
    */
   font-size: 1.6rem; 
-/* 
-  margin: 0;
-  padding: 0; */
 }
 
 `
