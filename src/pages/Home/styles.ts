@@ -62,34 +62,27 @@ export const MarketingItems = styled.div`
     }
   }
 `
-export const ShoppingItem = styled.div`
+export const Item = styled.div`
   height: 3.2rem;
   margin-bottom: 2rem;
+`
 
+export const ShoppingItem = styled(Item)`
   span {
     background-color: ${(props) => props.theme['yellow-dark']};
   }
 `
-export const PackageItem = styled.div`
-  height: 3.2rem;
-  margin-bottom: 2rem;
-
+export const PackageItem = styled(Item)`
   span {
     background-color: ${(props) => props.theme['base-text']};
   }
 `
-export const TimeItem = styled.div`
-  height: 3.2rem;
-  margin-bottom: 2rem;
-
+export const TimeItem = styled(Item)`
   span {
     background-color: ${(props) => props.theme.yellow};
   }
 `
-export const CoffeeItem = styled.div`
-  height: 3.2rem;
-  margin-bottom: 2rem;
-
+export const CoffeeItem = styled(Item)`
   span {
     background-color: ${(props) => props.theme.purple};
   }
