@@ -35,17 +35,45 @@ interface FlavorType {
   name: string
 }
 
-interface CoffeeType {
+interface CoffeeProps {
   id: string
   name: string
   description: string
   quantity: number
   price: number
-  urlImage: string
+  urlCoffeImage: string
   flavor: FlavorType[]
 }
 
-const coffeesList: CoffeeType[] = [
+interface CartItem {
+  id: string
+  quantity: number
+  name: string
+  urlCoffeImage: string
+  price: number
+  total: number
+}
+
+interface DeliveryAddress {
+  zipcode: string
+  street: string
+  number: string
+  reference: string
+  neighborhood: string
+  city: string
+  state: string
+}
+
+interface Cart {
+  payment: 'Credit Card' | 'Debit Card' | 'Money'
+  address: DeliveryAddress
+  itemsCount: number
+  items: CartItem[]
+  total: number
+  deliveryFee: number
+}
+
+const coffeesList: CoffeeProps[] = [
   {
     id: 'ad1123imi',
     name: 'Traditional Espresso',
@@ -53,7 +81,7 @@ const coffeesList: CoffeeType[] = [
       'Traditional coffee brewed with hot water and ground coffee beans',
     price: 9.9,
     quantity: 0,
-    urlImage: 'src/assets/coffee/traditional-espresso.svg',
+    urlCoffeImage: 'src/assets/coffee/traditional-espresso.svg',
     flavor: [{ name: 'Traditional' }],
   },
   {
@@ -62,7 +90,7 @@ const coffeesList: CoffeeType[] = [
     description: 'A diluted espresso, less intense than the Traditional',
     price: 9.9,
     quantity: 0,
-    urlImage: 'src/assets/coffee/american-espresso.svg',
+    urlCoffeImage: 'src/assets/coffee/american-espresso.svg',
     flavor: [{ name: 'Traditional' }],
   },
   {
@@ -71,7 +99,7 @@ const coffeesList: CoffeeType[] = [
     description: 'Traditional espresso coffee with a creamy milk foam',
     price: 9.9,
     quantity: 0,
-    urlImage: 'src/assets/coffee/creamy-espresso.svg',
+    urlCoffeImage: 'src/assets/coffee/creamy-espresso.svg',
     flavor: [{ name: 'Traditional' }],
   },
   {
@@ -80,13 +108,31 @@ const coffeesList: CoffeeType[] = [
     description: 'A brew prepared with ice cubes and a espresso coffee',
     price: 9.9,
     quantity: 0,
-    urlImage: 'src/assets/coffee/icy-espresso.svg',
+    urlCoffeImage: 'src/assets/coffee/icy-espresso.svg',
     flavor: [{ name: 'Traditional' }, { name: 'Cold' }],
   },
 ]
 
+const initialCart: Cart = {
+  address: {
+    city: '',
+    neighborhood: '',
+    number: '',
+    reference: '',
+    state: '',
+    street: '',
+    zipcode: '',
+  },
+  payment: 'Money',
+  itemsCount: 0,
+  items: [],
+  deliveryFee: 0,
+  total: 0,
+}
+
 export function Home() {
-  const [coffees, setCoffees] = useState<CoffeeType[]>(coffeesList)
+  const [coffees, setCoffees] = useState<CoffeeProps[]>(coffeesList)
+  const [cartItems, setCartItems] = useState<Cart>(initialCart)
 
   console.log(coffees)
 
@@ -138,7 +184,7 @@ export function Home() {
           {coffees.map((coffee) => {
             return (
               <CoffeeCard key={coffee.id}>
-                <img src={coffee.urlImage} alt={coffee.name} />
+                <img src={coffee.urlCoffeImage} alt={coffee.name} />
                 <FlavorTiles>
                   {coffee.flavor.map((flavor) => {
                     return <span key={flavor.name}>{flavor.name}</span>
