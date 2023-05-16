@@ -29,8 +29,67 @@ import {
   PriceContainer,
   CoffeeContainer,
 } from './styles'
+import { useState } from 'react'
+
+interface FlavorType {
+  name: string
+}
+
+interface CoffeeType {
+  id: string
+  name: string
+  description: string
+  quantity: number
+  price: number
+  urlImage: string
+  flavor: FlavorType[]
+}
+
+const coffeesList: CoffeeType[] = [
+  {
+    id: 'ad1123imi',
+    name: 'Traditional Espresso',
+    description:
+      'Traditional coffee brewed with hot water and ground coffee beans',
+    price: 9.9,
+    quantity: 0,
+    urlImage: 'src/assets/coffee/traditional-espresso.svg',
+    flavor: [{ name: 'Traditional' }],
+  },
+  {
+    id: 'asdo123jj',
+    name: 'American Espresso',
+    description: 'A diluted espresso, less intense than the Traditional',
+    price: 9.9,
+    quantity: 0,
+    urlImage: 'src/assets/coffee/american-espresso.svg',
+    flavor: [{ name: 'Traditional' }],
+  },
+  {
+    id: 'asi21ijd',
+    name: 'Creamy Espresso',
+    description: 'Traditional espresso coffee with a creamy milk foam',
+    price: 9.9,
+    quantity: 0,
+    urlImage: 'src/assets/coffee/creamy-espresso.svg',
+    flavor: [{ name: 'Traditional' }],
+  },
+  {
+    id: 'ask21kda',
+    name: 'Icy Espresso',
+    description: 'A brew prepared with ice cubes and a espresso coffee',
+    price: 9.9,
+    quantity: 0,
+    urlImage: 'src/assets/coffee/icy-espresso.svg',
+    flavor: [{ name: 'Traditional' }, { name: 'Cold' }],
+  },
+]
 
 export function Home() {
+  const [coffees, setCoffees] = useState<CoffeeType[]>(coffeesList)
+
+  console.log(coffees)
+
   return (
     <MainContainer>
       <MarketingContainer>
@@ -76,10 +135,40 @@ export function Home() {
       <CoffeeContainer>
         <h2>Our Cafes</h2>
         <CoffeeList>
-          <CoffeeCard>
+          {coffees.map((coffee) => {
+            return (
+              <CoffeeCard key={coffee.id}>
+                <img src={coffee.urlImage} alt={coffee.name} />
+                <FlavorTiles>
+                  {coffee.flavor.map((flavor) => {
+                    return <span key={flavor.name}>{flavor.name}</span>
+                  })}
+                </FlavorTiles>
+                <h4>{coffee.name}</h4>
+                <p>{coffee.description}</p>
+                <PriceContainer>
+                  <span>
+                    R$ <p>{coffee.price}</p>
+                  </span>
+                  <div>
+                    <span>
+                      <Minus weight="fill" size={16} />
+                      <p>{coffee.quantity}</p>
+                      <Plus weight="fill" size={16} />
+                    </span>
+                    <span>
+                      <ShoppingCart size={26} weight="fill" />
+                    </span>
+                  </div>
+                </PriceContainer>
+              </CoffeeCard>
+            )
+          })}
+
+          {/* <CoffeeCard>
             <img src={traditionalEspresso} alt="Traditional express" />
             <FlavorTiles>
-              <span>Tradicional</span>
+              <span>Traditional</span>
             </FlavorTiles>
             <h4>Traditional Espresso</h4>
             <p>
@@ -92,7 +181,7 @@ export function Home() {
               <div>
                 <span>
                   <Minus weight="fill" size={16} />
-                  <p>1</p>
+                  <p>0</p>
                   <Plus weight="fill" size={16} />
                 </span>
                 <span>
@@ -116,7 +205,7 @@ export function Home() {
               <div>
                 <span>
                   <Minus weight="fill" size={16} />
-                  <p>1</p>
+                  <p>0</p>
                   <Plus weight="fill" size={16} />
                 </span>
                 <span>
@@ -140,7 +229,7 @@ export function Home() {
               <div>
                 <span>
                   <Minus weight="fill" size={16} />
-                  <p>1</p>
+                  <p>0</p>
                   <Plus weight="fill" size={16} />
                 </span>
                 <span>
@@ -165,7 +254,7 @@ export function Home() {
               <div>
                 <span>
                   <Minus weight="fill" size={16} />
-                  <p>1</p>
+                  <p>0</p>
                   <Plus weight="fill" size={16} />
                 </span>
                 <span>
@@ -173,7 +262,7 @@ export function Home() {
                 </span>
               </div>
             </PriceContainer>
-          </CoffeeCard>
+          </CoffeeCard> */}
         </CoffeeList>
       </CoffeeContainer>
     </MainContainer>
