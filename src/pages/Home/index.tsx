@@ -9,11 +9,6 @@ import {
 
 import coffeDelivery from '../../assets/coffee-delivery-home.svg'
 
-import traditionalEspresso from '../../assets/coffee/traditional-espresso.svg'
-import americanEspresso from '../../assets/coffee/american-espresso.svg'
-import creamyEspresso from '../../assets/coffee/creamy-espresso.svg'
-import icyEspresso from '../../assets/coffee/icy-espresso.svg'
-
 import {
   MainContainer,
   MarketingContainer,
@@ -29,7 +24,7 @@ import {
   PriceContainer,
   CoffeeContainer,
 } from './styles'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 interface FlavorType {
   name: string
@@ -134,7 +129,82 @@ export function Home() {
   const [coffees, setCoffees] = useState<CoffeeProps[]>(coffeesList)
   const [cartItems, setCartItems] = useState<Cart>(initialCart)
 
-  console.log(coffees)
+  function handleAddQuantity(coffeeItem: CoffeeProps, operation: string) {
+    setCoffees((state) =>
+      state.map((coffee) => {
+        if (coffee.id === coffeeItem.id) {
+          if (operation === 'minus') {
+            if (coffee.quantity > 0) {
+              return { ...coffee, quantity: coffee.quantity - 1 }
+            } else {
+              return coffee
+            }
+          } else {
+            return { ...coffee, quantity: coffee.quantity + 1 }
+          }
+        } else {
+          return coffee
+        }
+      }),
+    )
+  }
+
+  function handleAddCartItem(coffeeItem: CoffeeProps) {
+    if (coffeeItem.quantity === 0) {
+      return
+    }
+
+    setCartItems((state) => {
+      const items = [] as CartItem[]
+      state.items.forEach((item) => items.push(Object.assign({}, item)))
+
+      const itemIndex = state.items.findIndex(
+        (item) => item.id === coffeeItem.id,
+      )
+
+      if (itemIndex !== -1) {
+        const itemChanged = items[itemIndex]
+
+        itemChanged.quantity = itemChanged.quantity + coffeeItem.quantity
+        itemChanged.total = itemChanged.quantity * itemChanged.price
+
+        items[itemIndex] = itemChanged
+      } else {
+        const newItem: CartItem = {
+          id: coffeeItem.id,
+          name: coffeeItem.name,
+          price: coffeeItem.price,
+          quantity: coffeeItem.quantity,
+          total: coffeeItem.quantity * coffeeItem.price,
+          urlCoffeImage: coffeeItem.urlCoffeImage,
+        }
+
+        items.push(newItem)
+      }
+
+      return {
+        ...state,
+        itemsCount: state.itemsCount + coffeeItem.quantity,
+        items,
+      }
+    })
+
+    // reset the coffee item quantity
+    setCoffees((state) =>
+      state.map((coffee) => {
+        if (coffee.id === coffeeItem.id) {
+          return { ...coffee, quantity: 0 }
+        } else {
+          return coffee
+        }
+      }),
+    )
+  }
+
+  useEffect(() => {
+    console.log('cart items')
+    console.log(cartItems)
+  }, [cartItems])
 
   return (
     <MainContainer>
@@ -198,12 +268,24 @@ export function Home() {
                   </span>
                   <div>
                     <span>
-                      <Minus weight="fill" size={16} />
+                      <Minus
+                        weight="fill"
+                        size={16}
+                        onClick={() => handleAddQuantity(coffee, 'minus')}
+                      />
                       <p>{coffee.quantity}</p>
-                      <Plus weight="fill" size={16} />
+                      <Plus
+                        weight="fill"
+                        size={16}
+                        onClick={() => handleAddQuantity(coffee, 'plus')}
+                      />
                     </span>
                     <span>
-                      <ShoppingCart size={26} weight="fill" />
+                      <ShoppingCart
+                        size={26}
+                        weight="fill"
+                        onClick={() => handleAddCartItem(coffee)}
+                      />
                     </span>
                   </div>
                 </PriceContainer>
