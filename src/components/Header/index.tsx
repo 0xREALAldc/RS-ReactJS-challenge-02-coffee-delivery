@@ -20,6 +20,7 @@ export function Header() {
             <ShoppingCart size={20} weight="fill" />
           </NavLink>
         </span>
+        <p>3</p>
       </div>
     </HomeHeader>
   )

@@ -40,6 +40,24 @@ export const HomeHeader = styled.header`
       background-color: ${(props) => props.theme['yellow-light']};
     }
 
+    p:nth-child(3) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 2rem;
+      height: 2rem;
+      background-color: ${(props) => props.theme['yellow-dark']};
+
+      border-radius: 999px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: ${(props) => props.theme.white};
+
+      margin-left: calc(0px - 2.3rem);
+      margin-top: calc(0px - 0.8rem);
+    }
+
     a {
       display: flex;
       align-items: center;
