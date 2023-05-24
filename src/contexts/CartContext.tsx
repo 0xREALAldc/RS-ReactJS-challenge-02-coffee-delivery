@@ -61,8 +61,50 @@ const initialCart: Cart = {
 
 interface CartContextType {
   cartItems: Cart
+  coffees: CoffeeProps[]
   AddCartItem: (coffeItem: CoffeeProps) => void
+  AddItemQuantity: (coffeeItem: CoffeeProps, operation: string) => void
 }
+
+const coffeesList: CoffeeProps[] = [
+  {
+    id: 'ad1123imi',
+    name: 'Traditional Espresso',
+    description:
+      'Traditional coffee brewed with hot water and ground coffee beans',
+    price: 9.9,
+    quantity: 0,
+    urlCoffeImage: 'src/assets/coffee/traditional-espresso.svg',
+    flavor: [{ name: 'Traditional' }],
+  },
+  {
+    id: 'asdo123jj',
+    name: 'American Espresso',
+    description: 'A diluted espresso, less intense than the Traditional',
+    price: 9.9,
+    quantity: 0,
+    urlCoffeImage: 'src/assets/coffee/american-espresso.svg',
+    flavor: [{ name: 'Traditional' }],
+  },
+  {
+    id: 'asi21ijd',
+    name: 'Creamy Espresso',
+    description: 'Traditional espresso coffee with a creamy milk foam',
+    price: 9.9,
+    quantity: 0,
+    urlCoffeImage: 'src/assets/coffee/creamy-espresso.svg',
+    flavor: [{ name: 'Traditional' }],
+  },
+  {
+    id: 'ask21kda',
+    name: 'Icy Espresso',
+    description: 'A brew prepared with ice cubes and a espresso coffee',
+    price: 9.9,
+    quantity: 0,
+    urlCoffeImage: 'src/assets/coffee/icy-espresso.svg',
+    flavor: [{ name: 'Traditional' }, { name: 'Cold' }],
+  },
+]
 
 interface CartContextProviderProps {
   children: ReactNode
@@ -71,7 +113,28 @@ interface CartContextProviderProps {
 export const CartContext = createContext({} as CartContextType)
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
+  const [coffees, setCoffees] = useState<CoffeeProps[]>(coffeesList)
   const [cartItems, setCartItems] = useState<Cart>(initialCart)
+
+  function AddItemQuantity(coffeeItem: CoffeeProps, operation: string) {
+    setCoffees((state) =>
+      state.map((coffee) => {
+        if (coffee.id === coffeeItem.id) {
+          if (operation === 'minus') {
+            if (coffee.quantity > 0) {
+              return { ...coffee, quantity: coffee.quantity - 1 }
+            } else {
+              return coffee
+            }
+          } else {
+            return { ...coffee, quantity: coffee.quantity + 1 }
+          }
+        } else {
+          return coffee
+        }
+      }),
+    )
+  }
 
   function AddCartItem(coffeeItem: CoffeeProps) {
     if (coffeeItem.quantity === 0) {
@@ -114,19 +177,21 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     })
 
     // reset the coffee item quantity
-    // setCoffees((state) =>
-    //   state.map((coffee) => {
-    //     if (coffee.id === coffeeItem.id) {
-    //       return { ...coffee, quantity: 0 }
-    //     } else {
-    //       return coffee
-    //     }
-    //   }),
-    // )
+    setCoffees((state) =>
+      state.map((coffee) => {
+        if (coffee.id === coffeeItem.id) {
+          return { ...coffee, quantity: 0 }
+        } else {
+          return coffee
+        }
+      }),
+    )
   }
 
   return (
-    <CartContext.Provider value={{ cartItems, AddCartItem }}>
+    <CartContext.Provider
+      value={{ cartItems, coffees, AddCartItem, AddItemQuantity }}
+    >
       {children}
     </CartContext.Provider>
   )

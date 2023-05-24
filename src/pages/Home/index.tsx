@@ -9,7 +9,7 @@ import {
 
 import coffeDelivery from '../../assets/coffee-delivery-home.svg'
 
-import { CartContext } from '../../contexts/CartContext'
+import { CartContext, CoffeeProps } from '../../contexts/CartContext'
 
 import {
   MainContainer,
@@ -26,88 +26,18 @@ import {
   PriceContainer,
   CoffeeContainer,
 } from './styles'
-import { useContext, useEffect, useState } from 'react'
-
-interface FlavorType {
-  name: string
-}
-
-interface CoffeeProps {
-  id: string
-  name: string
-  description: string
-  quantity: number
-  price: number
-  urlCoffeImage: string
-  flavor: FlavorType[]
-}
-
-const coffeesList: CoffeeProps[] = [
-  {
-    id: 'ad1123imi',
-    name: 'Traditional Espresso',
-    description:
-      'Traditional coffee brewed with hot water and ground coffee beans',
-    price: 9.9,
-    quantity: 0,
-    urlCoffeImage: 'src/assets/coffee/traditional-espresso.svg',
-    flavor: [{ name: 'Traditional' }],
-  },
-  {
-    id: 'asdo123jj',
-    name: 'American Espresso',
-    description: 'A diluted espresso, less intense than the Traditional',
-    price: 9.9,
-    quantity: 0,
-    urlCoffeImage: 'src/assets/coffee/american-espresso.svg',
-    flavor: [{ name: 'Traditional' }],
-  },
-  {
-    id: 'asi21ijd',
-    name: 'Creamy Espresso',
-    description: 'Traditional espresso coffee with a creamy milk foam',
-    price: 9.9,
-    quantity: 0,
-    urlCoffeImage: 'src/assets/coffee/creamy-espresso.svg',
-    flavor: [{ name: 'Traditional' }],
-  },
-  {
-    id: 'ask21kda',
-    name: 'Icy Espresso',
-    description: 'A brew prepared with ice cubes and a espresso coffee',
-    price: 9.9,
-    quantity: 0,
-    urlCoffeImage: 'src/assets/coffee/icy-espresso.svg',
-    flavor: [{ name: 'Traditional' }, { name: 'Cold' }],
-  },
-]
+import { useContext, useEffect } from 'react'
 
 export function Home() {
-  const [coffees, setCoffees] = useState<CoffeeProps[]>(coffeesList)
-  const { cartItems, AddCartItem } = useContext(CartContext)
-
-  function handleAddQuantity(coffeeItem: CoffeeProps, operation: string) {
-    setCoffees((state) =>
-      state.map((coffee) => {
-        if (coffee.id === coffeeItem.id) {
-          if (operation === 'minus') {
-            if (coffee.quantity > 0) {
-              return { ...coffee, quantity: coffee.quantity - 1 }
-            } else {
-              return coffee
-            }
-          } else {
-            return { ...coffee, quantity: coffee.quantity + 1 }
-          }
-        } else {
-          return coffee
-        }
-      }),
-    )
-  }
+  const { cartItems, coffees, AddItemQuantity, AddCartItem } =
+    useContext(CartContext)
 
   function handleAddCartItem(coffeeItem: CoffeeProps) {
     AddCartItem(coffeeItem)
+  }
+
+  function handleAddItemQuantity(coffeeItem: CoffeeProps, operation: string) {
+    AddItemQuantity(coffeeItem, operation)
   }
 
   useEffect(() => {
@@ -180,21 +110,17 @@ export function Home() {
                       <Minus
                         weight="fill"
                         size={16}
-                        onClick={() => handleAddQuantity(coffee, 'minus')}
+                        onClick={() => handleAddItemQuantity(coffee, 'minus')}
                       />
                       <p>{coffee.quantity}</p>
                       <Plus
                         weight="fill"
                         size={16}
-                        onClick={() => handleAddQuantity(coffee, 'plus')}
+                        onClick={() => handleAddItemQuantity(coffee, 'plus')}
                       />
                     </span>
-                    <span>
-                      <ShoppingCart
-                        size={26}
-                        weight="fill"
-                        onClick={() => handleAddCartItem(coffee)}
-                      />
+                    <span onClick={() => handleAddCartItem(coffee)}>
+                      <ShoppingCart size={26} weight="fill" />
                     </span>
                   </div>
                 </PriceContainer>
