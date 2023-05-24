@@ -9,6 +9,8 @@ import {
 
 import coffeDelivery from '../../assets/coffee-delivery-home.svg'
 
+import { CartContext } from '../../contexts/CartContext'
+
 import {
   MainContainer,
   MarketingContainer,
@@ -24,7 +26,7 @@ import {
   PriceContainer,
   CoffeeContainer,
 } from './styles'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 interface FlavorType {
   name: string
@@ -38,34 +40,6 @@ interface CoffeeProps {
   price: number
   urlCoffeImage: string
   flavor: FlavorType[]
-}
-
-interface CartItem {
-  id: string
-  quantity: number
-  name: string
-  urlCoffeImage: string
-  price: number
-  total: number
-}
-
-interface DeliveryAddress {
-  zipcode: string
-  street: string
-  number: string
-  reference: string
-  neighborhood: string
-  city: string
-  state: string
-}
-
-interface Cart {
-  payment: 'Credit Card' | 'Debit Card' | 'Money'
-  address: DeliveryAddress
-  itemsCount: number
-  items: CartItem[]
-  total: number
-  deliveryFee: number
 }
 
 const coffeesList: CoffeeProps[] = [
@@ -108,26 +82,9 @@ const coffeesList: CoffeeProps[] = [
   },
 ]
 
-const initialCart: Cart = {
-  address: {
-    city: '',
-    neighborhood: '',
-    number: '',
-    reference: '',
-    state: '',
-    street: '',
-    zipcode: '',
-  },
-  payment: 'Money',
-  itemsCount: 0,
-  items: [],
-  deliveryFee: 0,
-  total: 0,
-}
-
 export function Home() {
   const [coffees, setCoffees] = useState<CoffeeProps[]>(coffeesList)
-  const [cartItems, setCartItems] = useState<Cart>(initialCart)
+  const { cartItems, AddCartItem } = useContext(CartContext)
 
   function handleAddQuantity(coffeeItem: CoffeeProps, operation: string) {
     setCoffees((state) =>
@@ -150,55 +107,7 @@ export function Home() {
   }
 
   function handleAddCartItem(coffeeItem: CoffeeProps) {
-    if (coffeeItem.quantity === 0) {
-      return
-    }
-
-    setCartItems((state) => {
-      const items = [] as CartItem[]
-      state.items.forEach((item) => items.push(Object.assign({}, item)))
-
-      const itemIndex = state.items.findIndex(
-        (item) => item.id === coffeeItem.id,
-      )
-
-      if (itemIndex !== -1) {
-        const itemChanged = items[itemIndex]
-
-        itemChanged.quantity = itemChanged.quantity + coffeeItem.quantity
-        itemChanged.total = itemChanged.quantity * itemChanged.price
-
-        items[itemIndex] = itemChanged
-      } else {
-        const newItem: CartItem = {
-          id: coffeeItem.id,
-          name: coffeeItem.name,
-          price: coffeeItem.price,
-          quantity: coffeeItem.quantity,
-          total: coffeeItem.quantity * coffeeItem.price,
-          urlCoffeImage: coffeeItem.urlCoffeImage,
-        }
-
-        items.push(newItem)
-      }
-
-      return {
-        ...state,
-        itemsCount: state.itemsCount + coffeeItem.quantity,
-        items,
-      }
-    })
-
-    // reset the coffee item quantity
-    setCoffees((state) =>
-      state.map((coffee) => {
-        if (coffee.id === coffeeItem.id) {
-          return { ...coffee, quantity: 0 }
-        } else {
-          return coffee
-        }
-      }),
-    )
+    AddCartItem(coffeeItem)
   }
 
   useEffect(() => {
@@ -249,7 +158,7 @@ export function Home() {
       </MarketingContainer>
 
       <CoffeeContainer>
-        <h2>Our Cafes</h2>
+        <h2>Our Coffees</h2>
         <CoffeeList>
           {coffees.map((coffee) => {
             return (
