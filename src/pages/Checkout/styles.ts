@@ -3,6 +3,13 @@ import styled from 'styled-components'
 export const PageContainer = styled.div`
   width: 112rem;
 
+  display: grid;
+  /* the first column will have the size fixed in 256px and the second the '1fr' means it'll adapt to what has left in the screen space */
+  grid-template-columns: 64rem 1fr;
+  gap: 3.2rem;
+  /* this is to make the items start from the top, and not leave them try to have the same sizes, because the default value here is 'stretch'  */
+  align-items: flex-start;
+
   h1 {
     font-family: 'Baloo 2';
     font-weight: 700;
@@ -232,7 +239,7 @@ export const ContainerItem = styled.div`
       }
 
       p {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         font-weight: 400;
         color: ${(props) => props.theme['base-title']};
       }

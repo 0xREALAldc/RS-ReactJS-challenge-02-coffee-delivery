@@ -1,12 +1,12 @@
 import { ReactNode, createContext, useState } from 'react'
 
-interface CartItem {
+export interface CartItem {
   id: string
   quantity: number
   name: string
   urlCoffeImage: string
   price: number
-  total: number
+  total: string
 }
 
 interface DeliveryAddress {
@@ -162,7 +162,7 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
           name: coffeeItem.name,
           price: coffeeItem.price,
           quantity: coffeeItem.quantity,
-          total: coffeeItem.quantity * coffeeItem.price,
+          total: (coffeeItem.quantity * coffeeItem.price).toFixed(2),
           urlCoffeImage: coffeeItem.urlCoffeImage,
         }
 
