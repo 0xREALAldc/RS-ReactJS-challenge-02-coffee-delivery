@@ -21,7 +21,7 @@ export const HomeHeader = styled.header`
 
       gap: 0.4rem;
 
-      background-color: aliceblue;
+      /* background-color: aliceblue; */
     }
 
     span:first-child {
