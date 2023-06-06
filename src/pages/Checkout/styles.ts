@@ -20,6 +20,20 @@ export const PageContainer = styled.div`
   }
 `
 
+export const EmptyCheckout = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: calc(100vh - 10.4rem);
+
+  font-family: 'Baloo 2';
+  font-weight: 700;
+  font-size: 1.8rem;
+
+  color: ${(props) => props.theme['base-subtitle']};
+`
+
 export const MainContainer = styled.main`
   width: 64rem;
 
@@ -155,9 +169,6 @@ export const PaymentButton = styled.button`
   }
 `
 export const CheckoutTotalContainer = styled.aside`
-  //remove after placing in the right
-  margin-top: 2rem;
-
   width: 44.8rem;
   height: 53.6rem;
 
@@ -180,6 +191,13 @@ export const CheckoutTotalDetails = styled.div`
   border-top-right-radius: 44px;
   border-bottom-left-radius: 44px;
   border-bottom-right-radius: 6px;
+`
+
+export const CheckoutItemsContainer = styled.div`
+  height: 25.6rem;
+  overflow-y: auto;
+
+  margin-bottom: 2.4rem;
 `
 
 export const CheckoutCardItem = styled.div`
@@ -259,3 +277,54 @@ export const Divider = styled.div`
   height: 1rem;
   margin-top: 2.4rem;
 `
+
+export const TotalLine = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-top: 1.2rem;
+
+  p {
+    font-size: 1.4rem;
+    color: ${(props) => props.theme['base-text']};
+  }
+`
+
+export const TotalAmount = styled(TotalLine)`
+  p {
+    font-size: 2rem;
+    font-weight: 700;
+    color: ${(props) => props.theme['base-subtitle']};
+  }
+`
+
+export const FinishOrder = styled.button`
+  width: 36.8rem;
+  height: 4.6rem;
+
+  margin-top: 2.4rem;
+
+  border-radius: 6px;
+  border: 0;
+
+  background-color: ${(props) => props.theme.yellow};
+
+  p {
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+
+    color: ${(props) => props.theme.white};
+    line-height: 160%;
+  }
+`
+
+// - add scroll in the listing of coffees in the total and finish the display of informations in the total Component (DONE)
+// - create a component to show when the cart is empty and validate to show in the checkout component (DONE)
+// - do the hover of buttons
+// - selection change color and border when a payment method is SelectionForeground
+// - do the finished order page
+// - create the smart contract to pay in Ether and deploy to Goerli SVGComponentTransferFunctionElement
+// - integrate the contract and page (wallet connection to pay to the smart contract)
+// - create an API in NodeJS to display the information of coffees``

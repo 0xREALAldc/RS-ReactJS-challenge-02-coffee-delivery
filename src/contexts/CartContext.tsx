@@ -153,7 +153,9 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
         const itemChanged = items[itemIndex]
 
         itemChanged.quantity = itemChanged.quantity + coffeeItem.quantity
-        itemChanged.total = itemChanged.quantity * itemChanged.price
+        itemChanged.total = (itemChanged.quantity * itemChanged.price).toFixed(
+          2,
+        )
 
         items[itemIndex] = itemChanged
       } else {
@@ -171,8 +173,10 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
       return {
         ...state,
+        deliveryFee: 5.55,
         itemsCount: state.itemsCount + coffeeItem.quantity,
         items,
+        total: items.reduce((sum, item) => sum + Number(item.total), 0),
       }
     })
 
