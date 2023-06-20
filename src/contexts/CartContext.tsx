@@ -1,11 +1,20 @@
 import { ReactNode, createContext, useState } from 'react'
 
-export interface CartItem {
-  id: string
-  quantity: number
+interface FlavorType {
   name: string
-  urlCoffeImage: string
+}
+
+export interface CoffeeProps {
+  id: string
+  name: string
+  description?: string
+  quantity: number
   price: number
+  urlCoffeImage: string
+  flavor?: FlavorType[]
+}
+
+export interface CartItem extends CoffeeProps {
   total: string
 }
 
@@ -26,20 +35,6 @@ interface Cart {
   items: CartItem[]
   total: number
   deliveryFee: number
-}
-
-interface FlavorType {
-  name: string
-}
-
-export interface CoffeeProps {
-  id: string
-  name: string
-  description: string
-  quantity: number
-  price: number
-  urlCoffeImage: string
-  flavor: FlavorType[]
 }
 
 const initialCart: Cart = {
@@ -64,6 +59,7 @@ interface CartContextType {
   coffees: CoffeeProps[]
   AddCartItem: (coffeItem: CoffeeProps) => void
   AddItemQuantity: (coffeeItem: CoffeeProps, operation: string) => void
+  AddItemQuantityInCart: (coffeeItem: CoffeeProps, operation: string) => void
 }
 
 const coffeesList: CoffeeProps[] = [
@@ -136,6 +132,41 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     )
   }
 
+  function AddItemQuantityInCart(coffeeItem: CoffeeProps, operation: string) {
+    setCartItems((state) => {
+      const items = [] as CartItem[]
+      state.items.forEach((item) => items.push(Object.assign({}, item)))
+
+      items.map((coffee) => {
+        if (coffee.id === coffeeItem.id) {
+          if (operation === 'minus') {
+            if (coffee.quantity > 0) {
+              return (
+                (coffee.quantity -= 1),
+                (coffee.total = (coffee.quantity * coffee.price).toFixed(2))
+              )
+            } else {
+              return coffee
+            }
+          } else {
+            return (
+              (coffee.quantity += 1),
+              (coffee.total = (coffee.quantity * coffee.price).toFixed(2))
+            )
+          }
+        } else {
+          return coffee
+        }
+      })
+
+      return {
+        ...state,
+        total: items.reduce((sum, item) => sum + Number(item.total), 0),
+        items,
+      }
+    })
+  }
+
   function AddCartItem(coffeeItem: CoffeeProps) {
     if (coffeeItem.quantity === 0) {
       return
@@ -194,7 +225,13 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
 
   return (
     <CartContext.Provider
-      value={{ cartItems, coffees, AddCartItem, AddItemQuantity }}
+      value={{
+        cartItems,
+        coffees,
+        AddCartItem,
+        AddItemQuantity,
+        AddItemQuantityInCart,
+      }}
     >
       {children}
     </CartContext.Provider>

@@ -323,6 +323,7 @@ export const FinishOrder = styled.button`
 // - add scroll in the listing of coffees in the total and finish the display of informations in the total Component (DONE)
 // - create a component to show when the cart is empty and validate to show in the checkout component (DONE)
 // - do the hover of buttons
+// - add the interactions in the buttons to ADD and REMOVE itens of the cart
 // - selection change color and border when a payment method is SelectionForeground
 // - do the finished order page
 // - create the smart contract to pay in Ether and deploy to Goerli SVGComponentTransferFunctionElement

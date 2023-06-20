@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { CartContext, CartItem } from '../../contexts/CartContext'
+import { CartContext, CartItem, CoffeeProps } from '../../contexts/CartContext'
 
 import {
   CreditCard,
@@ -41,8 +41,12 @@ import {
 } from './styles'
 
 export function Checkout() {
-  const { cartItems } = useContext(CartContext)
+  const { cartItems, AddItemQuantityInCart } = useContext(CartContext)
   const { items } = cartItems
+
+  function handleAddItemQuantity(coffeeItem: CoffeeProps, operation: string) {
+    AddItemQuantityInCart(coffeeItem, operation)
+  }
 
   return (
     <>
@@ -131,7 +135,7 @@ export function Checkout() {
               <CheckoutItemsContainer>
                 {items.map((item: CartItem) => {
                   return (
-                    <>
+                    <div key={item.id}>
                       <CheckoutCardItem>
                         <CheckoutCardItemDetails>
                           <img src={item.urlCoffeImage} alt={item.name} />
@@ -139,11 +143,19 @@ export function Checkout() {
                             <h4>{item.name}</h4>
                             <div>
                               <div>
-                                <span>
+                                <span
+                                  onClick={() =>
+                                    handleAddItemQuantity(item, 'minus')
+                                  }
+                                >
                                   <Minus size={16} />
                                 </span>
                                 <p>{item.quantity}</p>
-                                <span>
+                                <span
+                                  onClick={() =>
+                                    handleAddItemQuantity(item, 'plus')
+                                  }
+                                >
                                   <Plus size={16} />
                                 </span>
                               </div>
@@ -159,7 +171,7 @@ export function Checkout() {
                         <span>${item.total}</span>
                       </CheckoutCardItem>
                       <Divider />
-                    </>
+                    </div>
                   )
                 })}
               </CheckoutItemsContainer>
@@ -177,7 +189,7 @@ export function Checkout() {
 
                 <TotalAmount>
                   <p>Total amount</p>
-                  <p>${cartItems.total + cartItems.deliveryFee}</p>
+                  <p>${(cartItems.total + cartItems.deliveryFee).toFixed(2)}</p>
                 </TotalAmount>
 
                 <FinishOrder>
