@@ -31,6 +31,7 @@ import {
   CheckoutTotalContainer,
   CheckoutTotalDetails,
   CheckoutCardItem,
+  ItemQuantity,
   CheckoutCardItemDetails,
   CheckoutItemsContainer,
   ContainerItem,
@@ -150,7 +151,7 @@ export function Checkout() {
                                 >
                                   <Minus size={16} />
                                 </span>
-                                <p>{item.quantity}</p>
+                                <ItemQuantity>{item.quantity}</ItemQuantity>
                                 <span
                                   onClick={() =>
                                     handleAddItemQuantity(item, 'plus')
@@ -179,7 +180,7 @@ export function Checkout() {
               <div>
                 <TotalLine>
                   <p>Total of coffees</p>
-                  <p>${cartItems.total}</p>
+                  <p>${cartItems.total.toFixed(2)}</p>
                 </TotalLine>
 
                 <TotalLine>

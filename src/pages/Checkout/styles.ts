@@ -235,7 +235,7 @@ export const ContainerItem = styled.div`
   div {
     display: flex;
 
-    gap: 0.8rem;
+    gap: 0.5rem;
 
     margin-top: 0.8rem;
 
@@ -256,11 +256,11 @@ export const ContainerItem = styled.div`
         color: ${(props) => props.theme.purple};
       }
 
-      p {
+      /* p {
         font-size: 1.6rem;
         font-weight: 400;
         color: ${(props) => props.theme['base-title']};
-      }
+      } */
     }
 
     div:nth-child(2) {
@@ -271,6 +271,14 @@ export const ContainerItem = styled.div`
       }
     }
   }
+`
+export const ItemQuantity = styled.p`
+  width: 1.9rem;
+
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: ${(props) => props.theme['base-title']};
 `
 export const Divider = styled.div`
   border-top: 1px solid ${(props) => props.theme['base-button']};
